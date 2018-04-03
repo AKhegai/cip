@@ -1,6 +1,23 @@
-import RPi.GPIO as GPIO
+# import RPi.GPIO as GPIO
 import time
 
+class GPIO_Mock:
+    BOARD = 'BOARD'
+    OUT = 'OUT'
+
+    def output(self, pin, is_positive):
+        pass
+
+    def setup(self, pin, is_positive):
+        pass
+
+    def cleanup(self):
+        pass
+
+    def setmode(self, mode):
+        pass
+
+GPIO = GPIO_Mock()
 
 MOTOR_A_PIN_1 = 11
 MOTOR_A_PIN_2 = 13
@@ -11,7 +28,7 @@ MOTOR_B_PWM = 33
 
 
 class Motor:
-    def init(self, forward_pin, back_pin, pwm=None):
+    def __init__(self, forward_pin, back_pin, pwm=None):
         self.forward_pin = forward_pin
         self.back_pin = back_pin
         self.pwm = pwm
@@ -92,7 +109,7 @@ class App:
 
     def setup(self):
         self._setup_gpio()
-        motor_1 = Motor(MOTOR_A_PIN_1, MOTOR_A_PIN_2)
+        motor_1 = Motor(MOTOR_A_PIN_2, MOTOR_A_PIN_1)
         motor_2 = Motor(MOTOR_B_PIN_1, MOTOR_B_PIN_2)
         self.car = Car(motor_1, motor_2)
 
@@ -100,7 +117,7 @@ class App:
         self.car.go_forward().go_back()
 
 
-if __name__ == 'main':
+if __name__ == '__main__':
     app = App()
     app.setup()
     try:
