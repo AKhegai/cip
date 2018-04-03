@@ -1,0 +1,7 @@
+.vscode
+.idea
+.ipynb_checkpoints
+*.jpg
+*.jpeg
+*.png
+DS_Store
