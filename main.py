@@ -1,23 +1,23 @@
-# import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO
 import time
 
-class GPIO_Mock:
-    BOARD = 'BOARD'
-    OUT = 'OUT'
+# class GPIO_Mock:
+#     BOARD = 'BOARD'
+#     OUT = 'OUT'
 
-    def output(self, pin, is_positive):
-        pass
+#     def output(self, pin, is_positive):
+#         pass
 
-    def setup(self, pin, is_positive):
-        pass
+#     def setup(self, pin, is_positive):
+#         pass
 
-    def cleanup(self):
-        pass
+#     def cleanup(self):
+#         pass
 
-    def setmode(self, mode):
-        pass
+#     def setmode(self, mode):
+#         pass
 
-GPIO = GPIO_Mock()
+# GPIO = GPIO_Mock()
 
 MOTOR_A_PIN_1 = 11
 MOTOR_A_PIN_2 = 13
@@ -47,7 +47,7 @@ class Motor:
 
 
 class Car:
-    def init(self, motor_1, motor_2):
+    def __init__(self, motor_1, motor_2):
         self.motor_1 = motor_1
         self.motor_2 = motor_2
 
