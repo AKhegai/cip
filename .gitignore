@@ -4,5 +4,6 @@
 *.jpg
 *.jpeg
 *.png
+*.pyc
 DS_Store
 __pycache__

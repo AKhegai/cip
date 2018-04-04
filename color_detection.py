@@ -1,14 +1,12 @@
 import numpy as np
-import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
-from sklearn.metrics import pairwise_distances_argmin
 from sklearn.utils import shuffle
 from time import time
 import cv2
 
 
 def is_color_in_range(color, lower, upper):
-    return np.all(lower < cluster_center) and np.all(upper > cluster_center)
+    return np.all(lower < color) and np.all(upper > color)
 
 
 def recreate_image(codebook, labels, w, h):
@@ -25,7 +23,7 @@ def recreate_image(codebook, labels, w, h):
 class ColorDetector:
     def __init__(self, image):
         self.image = image
-        self._train_k_means(2)
+        self._train_k_means(3)
         self._crop_image(0.25)
         
 
@@ -46,12 +44,18 @@ class ColorDetector:
         ]
 
     def _train_k_means(self, n_colors):
-        image_array_sample = shuffle(self.image, random_state=0)[:500]
+        w, h, d = tuple(self.image.shape)
+	image_array = np.reshape(self.image, (w * h, d))
+        image_array_sample = shuffle(image_array, random_state=0)[:500]
         self.kmeans = KMeans(n_clusters=n_colors, random_state=0).fit(image_array_sample)
+	self.labels = self.kmeans.predict(image_array)
+	recreated_image = recreate_image(self.kmeans.cluster_centers_, self.labels, w, h)
+	cv2.imwrite('1.jpg', cv2.cvtColor(np.uint8(recreated_image), cv2.COLOR_BGR2RGB))
 
 
     def is_color_in_image(self, color):
         for cluster_center in self.kmeans.cluster_centers_:
+	    print cluster_center
             if is_color_in_range(
                 cluster_center, 
                 color[0],

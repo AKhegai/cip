@@ -1,5 +1,7 @@
+
 import RPi.GPIO as GPIO
 import time
+import numpy as np
 from car import Car
 from motor import Motor
 from camera import Camera
@@ -72,10 +74,9 @@ class App:
         self.car = Car(motor_1, motor_2, Camera())
 
     def run(self):
-        self.car.go_forward(0.5)
         image = self.car.camera.capture()
         color_detector = ColorDetector(image)
-        colors = direction_when_see.keys()
+        colors = boundaries_of.keys()
         for color in colors:
             is_color_in_image = color_detector.is_color_in_image(boundaries_of[color])
             if not is_color_in_image:
