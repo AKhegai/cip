@@ -58,6 +58,9 @@ boundaries_of = {
 }
 
 
+def is_color_in_range(color, lower, upper):
+    return np.all(lower < color) and np.all(upper > color)
+
 class App:
     def __init__(self):
         self.car = None
@@ -85,31 +88,35 @@ class App:
         motor_1 = Motor(GPIO, MOTOR_A_PIN_2, MOTOR_A_PIN_1)
         motor_2 = Motor(GPIO, MOTOR_B_PIN_1, MOTOR_B_PIN_2)
         self.car = Car(motor_1, motor_2, Camera())
+        self.path = ['yellow', 'blue']        
 
     def run(self):
+        if len(self.path) == 0:
+            return
         image = self.car.camera.capture()
         color_detector = ColorDetector(image)
         colors = boundaries_of.keys()
-
-        found_color = None
-        for color in colors:
-            is_color_in_image = color_detector.is_color_in_image(boundaries_of[color], color)
-            print(is_color_in_image)
-            if is_color_in_image:
-                found_color = color
-                break
-        if not found_color:
-            return
-        elif found_color == 'pink':
-            self.car.turn_left(0.5)
-        elif found_color == 'blue':
-            self.car.turn_right(0.5)
-        elif found_color == 'yellow':
-            self.car.go_forward(0.5)
-        elif found_color == 'green':
-            self.car.go_forward(0.5)
-        elif found_color == 'orange':
-            self.car.turn_left(1.5)
+        color_to_find_range = boundaries_of[self.path[0]]
+        for found_color in color_detector.kmeans.cluster_centers_:
+            print ('FOUND')
+            print (found_color)
+            is_color_found = is_color_in_range(found_color, color_to_find_range[0], color_to_find_range[1])
+            if not is_color_found:
+                print('NOT IN RANGE {}'.format([self.path[0]))
+                continue
+            else:
+                print('IN RANGE {}'.format([self.path[0]))                
+                elif found_color == 'pink':
+                    self.car.turn_left(0.5)
+                elif found_color == 'blue':
+                    self.car.turn_right(0.5)
+                elif found_color == 'yellow':
+                    self.car.go_forward(0.5)
+                elif found_color == 'green':
+                    self.car.go_forward(0.5)
+                elif found_color == 'orange':
+                    self.car.turn_left(1.5)
+                self.path.pop(0)
 
 
     def stop(self):
