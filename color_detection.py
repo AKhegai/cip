@@ -55,7 +55,7 @@ class ColorDetector:
 
     def is_color_in_image(self, color):
         for cluster_center in self.kmeans.cluster_centers_:
-	    print cluster_center
+	    print ('Found {}. Looked for {}'.format(cluster_center, color))
             if is_color_in_range(
                 cluster_center, 
                 color[0],
