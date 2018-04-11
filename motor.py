@@ -1,18 +1,13 @@
 class Motor:
-    def __init__(self, gpio, forward_pin, back_pin, pwm=None):
+    def __init__(self, gpio, pwm, back_pin):
         self.gpio = gpio
-        self.forward_pin = forward_pin
-        self.back_pin = back_pin
         self.pwm = pwm
+        self.back_pin = back_pin
 
-    def forward(self):
-        self.gpio.output(self.forward_pin, True)
+    def forward(self, dc):
+        self.pwm.ChangeDutyCycle(dc)
         self.gpio.output(self.back_pin, False)
 
-    def back(self):
-        self.gpio.output(self.forward_pin, False)
-        self.gpio.output(self.back_pin, True)
-
     def stop(self):
-        self.gpio.output(self.forward_pin, False)
+        self.pwm.ChangeDutyCycle(0)
         self.gpio.output(self.back_pin, False)

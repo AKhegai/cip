@@ -73,28 +73,20 @@ class App:
         GPIO.setup(MOTOR_A_PWM, GPIO.OUT)
         GPIO.setup(MOTOR_B_PIN_1, GPIO.OUT)
         GPIO.setup(MOTOR_B_PIN_2, GPIO.OUT)
-        GPIO.setup(MOTOR_B_PWM, GPIO.OUT)
+        GPIO.setup(MOTOR_B_PWM, GPIO.OUT)                   
 
-        self.PWM_B_1 = GPIO.PWM(MOTOR_B_PIN_1, 100)
-        self.PWM_A_1 = GPIO.PWM(MOTOR_A_PIN_1, 100)
-        self.PWM_A_1.start(0)
-        self.PWM_B_1.start(0)                        
-
-        # GPIO.output(MOTOR_A_PIN_1, False)
-        # GPIO.output(MOTOR_A_PIN_2, False)
-        # GPIO.output(MOTOR_B_PIN_1, False)
-        # GPIO.output(MOTOR_B_PIN_2, False)
-
-        # GPIO.output(MOTOR_A_PWM, True)
-        # GPIO.output(MOTOR_B_PWM, True)
+        GPIO.output(MOTOR_A_PIN_2, False)
+        GPIO.output(MOTOR_B_PIN_1, False)
 
     def setup(self):
         self._setup_gpio()
-        motor_1 = Motor(GPIO, MOTOR_A_PIN_2, MOTOR_A_PIN_1)
-        motor_2 = Motor(GPIO, MOTOR_B_PIN_1, MOTOR_B_PIN_2)
-        self.car = Car(motor_1, motor_2, Camera())
-        self.PWM_A_1.ChangeDutyCycle(50)
-        self.PWM_B_1.ChangeDutyCycle(50)        
+        PWM_B_1 = GPIO.PWM(MOTOR_B_PIN_1, 100)
+        PWM_A_1 = GPIO.PWM(MOTOR_A_PIN_2, 100)
+        PWM_A_1.start(0)
+        PWM_B_1.start(0)     
+        motor_1 = Motor(GPIO, PWM_A_1, MOTOR_A_PIN_1)
+        motor_2 = Motor(GPIO, PWM_B_1, MOTOR_B_PIN_2)
+        self.car = Car(motor_1, motor_2, Camera())     
         self.path = ['pink', 'orange', 'blue', 'yellow', 'green']        
 
     def run(self):
@@ -131,6 +123,8 @@ class App:
     def stop(self):
         GPIO.cleanup()
         self.car.camera.close()
+        self.car.motor_1.pwm.stop()
+        self.car.motor_2.pwm.stop()        
 
 
 if __name__ == '__main__':
@@ -138,8 +132,7 @@ if __name__ == '__main__':
     app.setup()
     try:    
         while True:
-            # app.run()
-            pass
+            app.run()
     except KeyboardInterrupt:
         app.stop()
         print("Program stopped by User")
