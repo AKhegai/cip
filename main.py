@@ -34,7 +34,7 @@ MOTOR_B_PWM = 33
 
 boundaries_of = {
     'pink': (
-        np.array([ 119, 0,103 ], dtype='uint8'),  
+        np.array([ 150, 0, 103 ], dtype='uint8'),  
         np.array([ 255, 122,237 ], dtype='uint8'), 
     ),
     'blue': (
@@ -105,7 +105,7 @@ class App:
             if not is_color_found:
                 print('NOT IN RANGE {}'.format(color_to_find))
                 self.car.go_forward(0.2)
-                self.car.turn_right(0.02)                
+                self.car.turn_right(0.47)                
                 continue
             else:
                 print('IN RANGE {}'.format(color_to_find))                
