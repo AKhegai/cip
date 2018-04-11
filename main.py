@@ -94,6 +94,7 @@ class App:
         colors = boundaries_of.keys()
         for color in colors:
             is_color_in_image = color_detector.is_color_in_image(boundaries_of[color], color)
+            print(is_color_in_image)
             if not is_color_in_image:
                 continue
             elif color == 'pink':
