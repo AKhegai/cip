@@ -99,13 +99,12 @@ class App:
         color_to_find = self.path[0]
         color_to_find_range = boundaries_of[color_to_find]
         for found_color in color_detector.kmeans.cluster_centers_:
-            print ('FOUND COLOR RGB')
             print (found_color)
             is_color_found = is_color_in_range(found_color, color_to_find_range[0], color_to_find_range[1])
             if not is_color_found:
                 print('NOT IN RANGE {}'.format(color_to_find))
                 self.car.go_forward(0.2)
-                self.car.turn_right(0.047)                
+                self.car.turn_right(0.08)                
                 continue
             else:
                 print('IN RANGE {}'.format(color_to_find))                
