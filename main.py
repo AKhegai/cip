@@ -106,7 +106,7 @@ class App:
                 continue
             else:
                 print('IN RANGE {}'.format(self.path[0]))                
-                elif found_color == 'pink':
+                if found_color == 'pink':
                     self.car.turn_left(0.5)
                 elif found_color == 'blue':
                     self.car.turn_right(0.5)
