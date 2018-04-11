@@ -88,7 +88,7 @@ class App:
         motor_1 = Motor(GPIO, MOTOR_A_PIN_2, MOTOR_A_PIN_1)
         motor_2 = Motor(GPIO, MOTOR_B_PIN_1, MOTOR_B_PIN_2)
         self.car = Car(motor_1, motor_2, Camera())
-        self.path = ['yellow', 'blue']        
+        self.path = ['yellow', 'blue', 'pink', 'orange', 'green']        
 
     def run(self):
         if len(self.path) == 0:
