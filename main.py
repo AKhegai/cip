@@ -104,7 +104,8 @@ class App:
             is_color_found = is_color_in_range(found_color, color_to_find_range[0], color_to_find_range[1])
             if not is_color_found:
                 print('NOT IN RANGE {}'.format(color_to_find))
-                self.car.go_forward(0.3)
+                self.car.go_forward(0.2)
+                self.car.turn_right(0.05)                
                 continue
             else:
                 print('IN RANGE {}'.format(color_to_find))                
@@ -115,7 +116,7 @@ class App:
                 elif color_to_find == 'yellow':
                     self.car.turn_right(0.5)
                 elif color_to_find == 'green':
-                    self.car.go_forward(0.5)
+                    self.car.turn_right(5)
                 elif color_to_find == 'orange':
                     self.car.turn_right(0.7)
                 self.path = self.path[1:]
