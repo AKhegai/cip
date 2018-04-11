@@ -96,27 +96,28 @@ class App:
         image = self.car.camera.capture()
         color_detector = ColorDetector(image)
         colors = boundaries_of.keys()
-        color_to_find_range = boundaries_of[self.path[0]]
+        color_to_find = self.path[0]
+        color_to_find_range = boundaries_of[color_to_find]
         for found_color in color_detector.kmeans.cluster_centers_:
-            print ('FOUND')
+            print ('FOUND COLOR RGB')
             print (found_color)
             is_color_found = is_color_in_range(found_color, color_to_find_range[0], color_to_find_range[1])
             if not is_color_found:
-                print('NOT IN RANGE {}'.format(self.path[0]))
+                print('NOT IN RANGE {}'.format(color_to_find))
                 continue
             else:
-                print('IN RANGE {}'.format(self.path[0]))                
-                if found_color == 'pink':
+                print('IN RANGE {}'.format(color_to_find))                
+                if color_to_find == 'pink':
                     self.car.turn_left(0.5)
-                elif found_color == 'blue':
+                elif color_to_find == 'blue':
                     self.car.turn_right(0.5)
-                elif found_color == 'yellow':
+                elif color_to_find == 'yellow':
                     self.car.go_forward(0.5)
-                elif found_color == 'green':
+                elif color_to_find == 'green':
                     self.car.go_forward(0.5)
-                elif found_color == 'orange':
+                elif color_to_find == 'orange':
                     self.car.turn_left(1.5)
-                self.path.pop(0)
+                self.path = self.path[1:]
 
 
     def stop(self):
