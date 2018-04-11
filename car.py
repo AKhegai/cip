@@ -14,14 +14,14 @@ class Car:
         return self
 
     def turn_right(self, seconds):
-        self.motor_1.forward()
+        self.motor_1.forward(80)
         # self.motor_2.back()
         time.sleep(seconds)
         self.stop()
         return self
 
     def turn_left(self, seconds):
-        self.motor_2.forward()
+        self.motor_2.forward(80)
         # self.motor_1.back()
         time.sleep(seconds)
         self.stop()
