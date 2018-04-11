@@ -53,13 +53,14 @@ class ColorDetector:
 	cv2.imwrite('1.jpg', cv2.cvtColor(np.uint8(recreated_image), cv2.COLOR_BGR2RGB))
 
 
-    def is_color_in_image(self, color):
+    def is_color_in_image(self, color_range, color_name):
         for cluster_center in self.kmeans.cluster_centers_:
-	    print ('Found {}. Looked for {}'.format(cluster_center, color))
+	        print ('Found {}. Looked for {}'.format(cluster_center, color_name))
             if is_color_in_range(
                 cluster_center, 
-                color[0],
-                color[1],
+                color_range[0],
+                color_range[1],
             ):
                 return True
+        print ('\n\n')
         return False

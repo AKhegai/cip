@@ -93,13 +93,12 @@ class App:
         color_detector = ColorDetector(image)
         colors = boundaries_of.keys()
         for color in colors:
-            is_color_in_image = color_detector.is_color_in_image(boundaries_of[color])
+            is_color_in_image = color_detector.is_color_in_image(boundaries_of[color], color)
             if not is_color_in_image:
                 continue
             elif color == 'pink':
                 self.car.turn_left(0.5)
             elif color == 'blue':
-                self.car.turn_right(0.5)
             elif color == 'yellow':
                 self.car.go_forward(0.5)
             elif color == 'green':
@@ -119,6 +118,7 @@ if __name__ == '__main__':
     try:    
         while True:
             app.run()
+                self.car.turn_right(0.5)
     except KeyboardInterrupt:
         app.stop()
         print("Program stopped by User")
