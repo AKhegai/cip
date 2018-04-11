@@ -47,8 +47,8 @@ boundaries_of = {
     
     ),
     'yellow': (
-        np.array([ 119, 127,0 ], dtype='uint8'),
-        np.array([ 250, 255,186 ], dtype='uint8'),
+        np.array([ 150, 150,40 ], dtype='uint8'),
+        np.array([ 200, 200,186 ], dtype='uint8'),
     ),
     'green': (
         np.array([ 0, 124,0 ], dtype='uint8'),
@@ -90,21 +90,26 @@ class App:
         image = self.car.camera.capture()
         color_detector = ColorDetector(image)
         colors = boundaries_of.keys()
+
+        found_color = None
         for color in colors:
             is_color_in_image = color_detector.is_color_in_image(boundaries_of[color], color)
             print(is_color_in_image)
-            if not is_color_in_image:
-                continue
-            elif color == 'pink':
-                self.car.turn_left(0.5)
-            elif color == 'blue':
-                self.car.turn_right(0.5)
-            elif color == 'yellow':
-                self.car.go_forward(0.5)
-            elif color == 'green':
-                self.car.go_forward(0.5)
-            elif color == 'orange':
-                self.car.turn_left(1.5)
+            if is_color_in_image:
+                found_color = color
+                break
+        if not found_color:
+            return
+        elif found_color == 'pink':
+            self.car.turn_left(0.5)
+        elif found_color == 'blue':
+            self.car.turn_right(0.5)
+        elif found_color == 'yellow':
+            self.car.go_forward(0.5)
+        elif found_color == 'green':
+            self.car.go_forward(0.5)
+        elif found_color == 'orange':
+            self.car.turn_left(1.5)
 
 
     def stop(self):
