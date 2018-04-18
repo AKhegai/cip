@@ -34,16 +34,16 @@ MOTOR_B_PWM = 33
 
 boundaries_of = {
     'pink': (
-        np.array([ 150, 0, 103 ], dtype='uint8'),  
-        np.array([ 255, 122,237 ], dtype='uint8'), 
+        np.array([ 191, 0, 139 ], dtype='uint8'),  
+        np.array([ 255, 50, 150 ], dtype='uint8'), 
     ),
     'blue': (
         np.array([ 0, 59,119 ], dtype='uint8'),
         np.array([ 143, 195,247 ], dtype='uint8'),
     ),
     'orange': (
-        np.array([ 150, 77,0 ], dtype='uint8'),
-        np.array([ 255, 188,117 ], dtype='uint8'),
+        np.array([ 200, 100, 0 ], dtype='uint8'),
+        np.array([ 255, 140, 50 ], dtype='uint8'),
     
     ),
     'yellow': (
@@ -52,7 +52,7 @@ boundaries_of = {
     ),
     'green': (
         np.array([ 80, 148,30 ], dtype='uint8'),
-        np.array([ 120, 255, 60 ], dtype='uint8'),    
+        np.array([ 120, 255, 60 ], dtype='uint8'),
     )
 }
 
