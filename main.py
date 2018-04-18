@@ -34,16 +34,16 @@ MOTOR_B_PWM = 33
 
 boundaries_of = {
     'pink': (
-        np.array([ 150, 0, 103 ], dtype='uint8'),  
-        np.array([ 255, 122,237 ], dtype='uint8'), 
+        np.array([ 191, 0, 139 ], dtype='uint8'),  
+        np.array([ 255, 50, 150 ], dtype='uint8'), 
     ),
     'blue': (
         np.array([ 0, 59,119 ], dtype='uint8'),
         np.array([ 143, 195,247 ], dtype='uint8'),
     ),
     'orange': (
-        np.array([ 150, 77,0 ], dtype='uint8'),
-        np.array([ 255, 188,117 ], dtype='uint8'),
+        np.array([ 200, 100, 0 ], dtype='uint8'),
+        np.array([ 255, 140, 50 ], dtype='uint8'),
     
     ),
     'yellow': (
@@ -52,7 +52,7 @@ boundaries_of = {
     ),
     'green': (
         np.array([ 80, 148,30 ], dtype='uint8'),
-        np.array([ 120, 255, 60 ], dtype='uint8'),    
+        np.array([ 120, 255, 60 ], dtype='uint8'),
     )
 }
 
@@ -74,20 +74,19 @@ class App:
         GPIO.setup(MOTOR_B_PIN_2, GPIO.OUT)
         GPIO.setup(MOTOR_B_PWM, GPIO.OUT)
 
-        GPIO.output(MOTOR_A_PIN_1, False)
         GPIO.output(MOTOR_A_PIN_2, False)
         GPIO.output(MOTOR_B_PIN_1, False)
-        GPIO.output(MOTOR_B_PIN_2, False)
-
-        GPIO.output(MOTOR_A_PWM, True)
-        GPIO.output(MOTOR_B_PWM, True)
 
     def setup(self):
         self._setup_gpio()
-        motor_1 = Motor(GPIO, MOTOR_A_PIN_2, MOTOR_A_PIN_1)
-        motor_2 = Motor(GPIO, MOTOR_B_PIN_1, MOTOR_B_PIN_2)
+        PWM_B_1 = GPIO.PWM(MOTOR_B_PIN_1, 100)
+        PWM_A_1 = GPIO.PWM(MOTOR_A_PIN_2, 100)
+        PWM_A_1.start(0)
+        PWM_B_1.start(0)     
+        motor_1 = Motor(GPIO, PWM_A_1, MOTOR_A_PIN_1)
+        motor_2 = Motor(GPIO, PWM_B_1, MOTOR_B_PIN_2)
         self.car = Car(motor_1, motor_2, Camera())
-        self.path = ['green', 'orange', 'pink', 'yellow', 'green']        
+        self.path = ['pink', 'orange', 'blue', 'yellow', 'green']        
 
     def run(self):
         if len(self.path) == 0:
@@ -102,26 +101,29 @@ class App:
             is_color_found = is_color_in_range(found_color, color_to_find_range[0], color_to_find_range[1])
             if not is_color_found:
                 print('NOT IN RANGE {}'.format(color_to_find))
-                self.car.go_forward(0.1)               
+                self.car.go_forward(0.2)
+                self.car.turn_right(0.04)                
                 continue
             else:
                 print('IN RANGE {}'.format(color_to_find))                
                 if color_to_find == 'pink':
-                    self.car.turn_right(0.4)
+                    self.car.go_forward(0.5)
                 elif color_to_find == 'blue':
                     self.car.turn_left(0.7)
                 elif color_to_find == 'yellow':
-                    self.car.turn_right(0.2)
+                    self.car.turn_right(0.5)
                 elif color_to_find == 'green':
-                    self.car.turn_right(0.15)
+                    self.car.turn_right(5)
                 elif color_to_find == 'orange':
-                    self.car.turn_left(0.2)
+                    self.car.turn_right(0.7)
                 self.path = self.path[1:]
 
 
     def stop(self):
         GPIO.cleanup()
         self.car.camera.close()
+        self.car.motor_1.pwm.stop()
+        self.car.motor_2.pwm.stop()        
 
 
 if __name__ == '__main__':
