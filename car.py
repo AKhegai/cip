@@ -7,22 +7,29 @@ class Car:
         self.camera = camera
 
     def go_forward(self, seconds=1):
-        self.motor_1.forward(50)
-        self.motor_2.forward(40)
+        self.motor_1.forward()
+        self.motor_2.forward()
+        time.sleep(seconds)
+        self.stop()
+        return self
+
+    def go_back(self, seconds=1):
+        self.motor_1.back()
+        self.motor_2.back()
         time.sleep(seconds)
         self.stop()
         return self
 
     def turn_right(self, seconds):
-        self.motor_1.forward(80)
-        # self.motor_2.back()
+        self.motor_1.forward()
+        self.motor_2.back()
         time.sleep(seconds)
         self.stop()
         return self
 
     def turn_left(self, seconds):
-        self.motor_2.forward(80)
-        # self.motor_1.back()
+        self.motor_2.forward()
+        self.motor_1.back()
         time.sleep(seconds)
         self.stop()
         return self
