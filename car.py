@@ -8,8 +8,10 @@ class Car:
 
     def go_forward(self, seconds=1):
         self.motor_1.forward()
+        time.sleep(seconds / 3)        
+        self.stop()        
         self.motor_2.forward()
-        time.sleep(seconds)
+        time.sleep(seconds)        
         self.stop()
         return self
 
