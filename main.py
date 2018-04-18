@@ -113,7 +113,7 @@ class App:
                 elif color_to_find == 'yellow':
                     self.car.turn_right(0.5)
                 elif color_to_find == 'green':
-                    self.car.turn_right(5)
+                    self.car.turn_right(0.1)
                 elif color_to_find == 'orange':
                     self.car.turn_right(0.7)
                 self.path = self.path[1:]
