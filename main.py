@@ -43,7 +43,7 @@ boundaries_of = {
     ),
     'orange': (
         np.array([ 140, 30, 30 ], dtype='uint8'),
-        np.array([ 255, 140, 50 ], dtype='uint8'),
+        np.array([ 255, 140, 100 ], dtype='uint8'),
     
     ),
     'yellow': (
