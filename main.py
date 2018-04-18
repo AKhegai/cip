@@ -51,7 +51,7 @@ boundaries_of = {
         np.array([ 200, 200,186 ], dtype='uint8'),
     ),
     'green': (
-        np.array([ 40, 148,10 ], dtype='uint8'),
+        np.array([ 40, 110,10 ], dtype='uint8'),
         np.array([ 120, 255, 60 ], dtype='uint8'),
     )
 }
