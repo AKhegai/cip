@@ -24,7 +24,6 @@ class ColorDetector:
     def __init__(self, image):
         self.image = image
         self._train_k_means(3)
-        self._crop_image(0.25)
         
 
     def _crop_image(self, w_crop_size, h_crop_size=None):
