@@ -11,7 +11,7 @@ class Car:
         time.sleep(seconds)        
         self.stop()        
         self.motor_2.forward()
-        time.sleep(seconds * 0.7)        
+        time.sleep(seconds * 0.6)        
         self.stop()
         return self
 
