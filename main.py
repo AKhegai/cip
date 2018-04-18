@@ -102,7 +102,7 @@ class App:
             is_color_found = is_color_in_range(found_color, color_to_find_range[0], color_to_find_range[1])
             if not is_color_found:
                 print('NOT IN RANGE {}'.format(color_to_find))
-                self.car.go_forward(0.05)               
+                self.car.go_forward(0.1)               
                 continue
             else:
                 print('IN RANGE {}'.format(color_to_find))                
