@@ -6,12 +6,12 @@ class Car:
         self.motor_2 = motor_2
         self.camera = camera
 
-    def go_forward(self, seconds=1):
+    def go_forward(self, seconds=0.5):
         self.motor_1.forward()
-        time.sleep(seconds / 3)        
+        time.sleep(seconds)        
         self.stop()        
         self.motor_2.forward()
-        time.sleep(seconds)        
+        time.sleep(seconds * 0.7)        
         self.stop()
         return self
 

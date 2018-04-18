@@ -88,7 +88,7 @@ class App:
         motor_1 = Motor(GPIO, MOTOR_A_PIN_2, MOTOR_A_PIN_1)
         motor_2 = Motor(GPIO, MOTOR_B_PIN_1, MOTOR_B_PIN_2)
         self.car = Car(motor_1, motor_2, Camera())
-        self.path = ['pink', 'orange', 'blue', 'yellow', 'green']        
+        self.path = ['green', 'orange', 'pink', 'yellow', 'green']        
 
     def run(self):
         if len(self.path) == 0:
@@ -103,21 +103,20 @@ class App:
             is_color_found = is_color_in_range(found_color, color_to_find_range[0], color_to_find_range[1])
             if not is_color_found:
                 print('NOT IN RANGE {}'.format(color_to_find))
-                self.car.go_forward(0.2)
-                self.car.turn_right(0.08)                
+                self.car.go_forward(0.1)               
                 continue
             else:
                 print('IN RANGE {}'.format(color_to_find))                
                 if color_to_find == 'pink':
-                    self.car.go_forward(0.5)
+                    self.car.turn_right(0.4)
                 elif color_to_find == 'blue':
                     self.car.turn_left(0.7)
                 elif color_to_find == 'yellow':
-                    self.car.turn_right(0.5)
+                    self.car.turn_right(0.2)
                 elif color_to_find == 'green':
-                    self.car.turn_right(5)
+                    self.car.turn_right(0.15)
                 elif color_to_find == 'orange':
-                    self.car.turn_right(0.7)
+                    self.car.turn_left(0.2)
                 self.path = self.path[1:]
 
 
