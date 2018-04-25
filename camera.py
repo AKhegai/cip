@@ -16,6 +16,7 @@ class Camera:
         
     def start_capturing(self):
          for frame in self.camera.capture_continuous(self.rawframe, format = "bgr"):
+            self.rawframe.truncate(0)
             yield frame.array
 
 
