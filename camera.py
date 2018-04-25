@@ -15,8 +15,8 @@ class Camera:
         self.camera.hflip = True   
         
     def start_capturing(self):
-         for image in self.camera.capture_continuous(self.rawframe, format = "bgr"):
-            yield image
+         for frame in self.camera.capture_continuous(self.rawframe, format = "bgr"):
+            yield frame.array
 
 
     def capture(self):
