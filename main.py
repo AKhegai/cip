@@ -63,17 +63,16 @@ class App:
             color_to_find = self.path[0]
             color_to_find_range = boundaries_of[color_to_find]
             is_color_found, where_to_go = color_detector.is_color_in_range(
-                color_to_find_range)
-            prev_found = False
+                color_to_find_range
+            )
             if is_color_found:
                 print('IN RANGE {}'.format(color_to_find))
-                getattr(self.car, [
-                    'turn_left', 'go_forward', 'turn_right'
-                ][where_to_go])(0.2)
-                prev_found = True
-            elif prev_found is True:
-                prev_found = False
-                self.path = self.path[1:]
+                if where_to_go == 0:
+                    self.car.turn_left(0.1)
+                elif where_to_go == 1:
+                    self.car.go_forward(0.2)
+                else:
+                    self.car.turn_right(0.1)
             else:
                 print('NOT IN RANGE {}'.format(color_to_find))
 
