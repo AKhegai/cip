@@ -69,7 +69,7 @@ class App:
                 print('IN RANGE {}'.format(color_to_find))
                 getattr(self.car, [
                     'turn_left', 'go_forward', 'turn_right'
-                ][where_to_go])(0.05)
+                ][where_to_go])(0.2)
                 prev_found = True
             elif prev_found is True:
                 prev_found = False
