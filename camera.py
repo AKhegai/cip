@@ -4,17 +4,18 @@ import time
 import cv2
 import numpy as np                              
 
-
+SIZE =  (640, 480)
 
 class Camera:
     def __init__(self):
         self.camera = picamera.PiCamera()
-        self.camera.resolution = (640, 480)
+        self.camera.resolution = SIZE
+        self.rawframe = picamera.array.PiRGBArray(self.camera, size=SIZE)
         self.camera.vflip = False 
         self.camera.hflip = True   
         
     def start_capturing(self):
-         for image in camera.capture_continuous(rawframe, format = "bgr"):
+         for image in self.camera.capture_continuous(self.rawframe, format = "bgr"):
             yield image
 
 
