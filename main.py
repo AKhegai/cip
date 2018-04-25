@@ -58,21 +58,21 @@ class App:
     def run(self):
         if len(self.path) == 0:
             return
-        image = self.car.camera.capture()
-        color_detector = ColorDetector(image)
-        color_to_find = self.path[0]
-        color_to_find_range = boundaries_of[color_to_find]
-        is_color_found = color_detector.is_color_in_range(color_to_find_range)
-        if not is_color_found:
-            print('NOT IN RANGE {}'.format(color_to_find))
-            self.car.go_forward(0.05)
-        else:
-            print('IN RANGE {}'.format(color_to_find))
-            if color_to_find == 'green':
-                self.car.turn_right(0.2)
-            elif color_to_find == 'orange':
-                self.car.turn_left(0.2)
-            self.path = self.path[1:]
+        for image in self.car.camera.start_capturing():
+            color_detector = ColorDetector(image)
+            color_to_find = self.path[0]
+            color_to_find_range = boundaries_of[color_to_find]
+            is_color_found = color_detector.is_color_in_range(color_to_find_range)
+            if not is_color_found:
+                print('NOT IN RANGE {}'.format(color_to_find))
+                self.car.go_forward(0.05)
+            else:
+                print('IN RANGE {}'.format(color_to_find))
+                if color_to_find == 'green':
+                    self.car.turn_right(0.2)
+                elif color_to_find == 'orange':
+                    self.car.turn_left(0.2)
+                self.path = self.path[1:]
 
     def stop(self):
         GPIO.cleanup()

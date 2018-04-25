@@ -13,6 +13,10 @@ class Camera:
         self.camera.vflip = False 
         self.camera.hflip = True   
         
+    def start_capturing(self):
+         for image in camera.capture_continuous(rawframe, format = "bgr"):
+            yield image
+
 
     def capture(self):
         rawframe = picamera.array.PiRGBArray(self.camera, size = (640, 480))
