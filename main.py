@@ -71,7 +71,7 @@ class App:
                     self.car.turn_left(0.1)
                 elif where_to_go == 1:
                     self.car.go_forward(0.2)
-                    self.car.turn_right(0.1)                    
+                    self.car.turn_right(0.07)                    
                 else:
                     self.car.turn_right(0.1)
             else:
