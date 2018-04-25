@@ -29,4 +29,22 @@ class ColorDetector:
         hsv = cv2.cvtColor(self.image, cv2.COLOR_BGR2HSV)
         mask = cv2.inRange(hsv, range_[0], range_[1])
         pixels_count = cv2.countNonZero(mask)
-        return pixels_count > 5000
+        if pixels_count < 5000:
+            return False, None
+        else:
+            left, center, right = self._divide_image(mask)
+            pixels_count_arr = [
+                cv2.countNonZero(left),
+                cv2.countNonZero(center),
+                cv2.countNonZero(right),
+            ]
+            return True, pixels_count_arr.index(max(pixels_count_arr))
+
+    def _divide_image(self, image):
+        height, width = self.image.shape[:2]
+        start_row, start_col = 0, 0
+        col = int(width / 3)
+        left = self.image[start_row:col, :]
+        center = self.image[col:col * 2, :]
+        right = self.image[col * 2:col * 3, :]
+        return left, center, right
