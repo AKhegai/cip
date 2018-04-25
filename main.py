@@ -53,7 +53,7 @@ class App:
         motor_1 = Motor(GPIO, MOTOR_A_PIN_2, MOTOR_A_PIN_1)
         motor_2 = Motor(GPIO, MOTOR_B_PIN_1, MOTOR_B_PIN_2)
         self.car = Car(motor_1, motor_2, Camera())
-        self.path = ['orange', 'green', 'orange', 'green']
+        self.path = ['green', 'green', 'orange', 'green']
 
     def run(self):
         for image in self.car.camera.start_capturing():
