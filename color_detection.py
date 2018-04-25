@@ -41,10 +41,10 @@ class ColorDetector:
             return True, pixels_count_arr.index(max(pixels_count_arr))
 
     def _divide_image(self, image):
-        height, width = self.image.shape[:2]
+        height, width = image.shape[:2]
         start_row, start_col = 0, 0
         col = int(width / 3)
-        left = self.image[start_row:col, :]
-        center = self.image[col:col * 2, :]
-        right = self.image[col * 2:col * 3, :]
+        left = image[start_row:col, :]
+        center = image[col:col * 2, :]
+        right = image[col * 2:col * 3, :]
         return left, center, right
